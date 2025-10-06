@@ -1,6 +1,6 @@
 # `france-ioi-bot`
 
-![alt text](logo.png)
+![The France-IOI logo](/assets/france-ioi.png)
 
 ## 🇺🇸 English
 
