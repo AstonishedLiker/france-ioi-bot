@@ -1,8 +1,11 @@
+from bs4 import BeautifulSoup
 from typing import Optional
 from requests import Session, Response
-from bs4 import BeautifulSoup
 
 from france_ioi.Scrapers.ChapterLevelScraper import scrape_levels_chapters
+from france_ioi.Scrapers.UsernameScraper import scrape_username
+from france_ioi.Scrapers.LanguageScraper import scrape_language
+from france_ioi.Language import Language
 from france_ioi.Constants import FRANCEIOI_BASE_URL
 
 class Account():
@@ -21,28 +24,23 @@ class Account():
         return response
 
     # TODO: Check for language (as it will mess up the scraper)
-    def initialize(self) -> bool:
+    def initialize(self):
         assert self.hasSuccessfullyInitialized == False
 
         response = self.httpQueryAuthed(f"/algo/chapters.php")
         if response is None:
-            return False
+            return
 
         doc = BeautifulSoup(response.content.decode(), "html.parser")
-        label = doc.find("label", { "for": "menuLoginToggle" })
-        if label is None:
-            print(":: Error scrapping the France-IOI home page: cannot find local user label")
-            return False
+        language = scrape_language(doc)
+        if language is not None and language != Language.FRENCH:
+            print(":: Please set your language to french in the France-IOI user interface!")
+            return
+        elif language is None:
+            return
 
-        username = label.get_text()
-        if username == "Connexion":
-            print(":: Error logging in France-IOI: Invalid PHPSESSID token")
-            return False
-
-        self.username = username
-        self.hasSuccessfullyInitialized = True
-
-        return True
+        self.username = scrape_username(doc)
+        self.hasSuccessfullyInitialized = isinstance(self.username, str)
 
     def queryLevels(self):
         response = self.httpQueryAuthed(f"/algo/chapters.php")
