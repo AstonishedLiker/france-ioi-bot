@@ -16,17 +16,34 @@ def scrape_tasks(account: Account, chapter: Chapter) -> bool:
     doc = BeautifulSoup(response.content.decode(), "html.parser")
     exercises = doc.find("div", { "class": "chapter-tasks with-categories" })
     if exercises is None:
-        print(f":: Warning scrapping the France-IOI chapter page: cannot find the exercises body div ({chapter.link})\n\t- NOTE: 'Programmer sur un ordinateur' is NOT supported")
+        print(f"!! Warning scrapping the France-IOI chapter page: cannot find the exercises body div ({chapter.link})\n\t- NOTE: 'Programmer sur un ordinateur' is NOT supported yet")
         return False
 
     for exerciseDiv in exercises.find_all("div", recursive=False):
-        category = exerciseDiv.find("span", { "class": "chapter-item-category" }).span["class"]
-        anchor = exerciseDiv.find("span", { "class": "chapter-item-title" }).a
+        categorySpan = exerciseDiv.find("span", { "class": "chapter-item-category" })
+        assert categorySpan is not None
 
-        title = anchor.get_text()
+        categoryTextSpan = categorySpan.span
+        assert categoryTextSpan is not None
+
+        category = categoryTextSpan["class"]
+        titleSpan = exerciseDiv.find("span", { "class": "chapter-item-title" })
+        assert titleSpan is not None
+
+        anchor = titleSpan.a
+        assert anchor is not None
+
+        taskTitle = anchor.get_text()
         link = anchor["href"]
-        isFinished = exerciseDiv.img["title"].startswith("Terminé")
+        assert isinstance(link, str)
 
-        chapter.tasks.append(Task(title, link, isFinished, TaskCategory(category[0]), chapter))
+        stateImg = exerciseDiv.img
+        assert stateImg is not None
+
+        stateTitle = stateImg["title"]
+        assert isinstance(stateTitle, str)
+
+        isFinished = stateTitle.startswith("Terminé")
+        chapter.tasks.append(Task(taskTitle, link, isFinished, TaskCategory(category[0]), chapter))
 
     return True
