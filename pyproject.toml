@@ -1,7 +1,7 @@
 [project]
 name = "france-ioi-bot"
 version = "0.1.0"
-description = "A bot that tries to complete all challenges on the France-IOI platform."
+description = "A bot that tries to complete all tasks on the France-IOI platform."
 authors = [
     {name = "AstonishedLiker",email = "astonishedliker@users.noreply.github.com"}
 ]
