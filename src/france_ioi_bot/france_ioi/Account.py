@@ -43,6 +43,8 @@ class Account():
         self.hasSuccessfullyInitialized = isinstance(self.username, str)
 
     def queryLevels(self):
+        assert self.hasSuccessfullyInitialized
+
         response = self.httpQueryAuthed(f"/algo/chapters.php")
         if response is None:
             return None
