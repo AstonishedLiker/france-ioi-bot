@@ -34,15 +34,13 @@ Le projet est né d'un défi lancé par mes professeurs de NSI : obtenir la note
 
 ### `🇺🇸` English
 
-* Automates selected France-IOI tasks locally
-* Scrapes and structures available lessons for offline exploration
-* Proof-of-concept implementation in Python
+* Automates most France-IOI tasks locally
+* Scrapes and structures available lessons
 
 ### `🇫🇷` Français
 
-* Automatise certaines tâches France-IOI en local
-* Récupère et structure les leçons disponibles pour une exploration hors ligne
-* Implémentation en preuve de concept avec Python
+* Automatise la plupart tâches France-IOI en local
+* Récupère et structure les leçons disponibles
 
 ## `📜` License / Licence
 
