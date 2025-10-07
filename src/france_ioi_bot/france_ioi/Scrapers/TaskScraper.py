@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from france_ioi.Account import Account
 
 def scrape_tasks(account: Account, chapter: Chapter) -> bool:
-    response = account.httpQueryAuthed(chapter.link.removeprefix(FRANCEIOI_BASE_URL))
+    response = account.getHttpQueryAuthed(chapter.link.removeprefix(FRANCEIOI_BASE_URL))
     if response is None:
         return False
     doc = BeautifulSoup(response.content.decode(), "html.parser")
@@ -19,7 +19,7 @@ def scrape_tasks(account: Account, chapter: Chapter) -> bool:
         print(f"!! Warning scrapping the France-IOI chapter page: cannot find the exercises body div ({chapter.link})\n\t- NOTE: 'Programmer sur un ordinateur' is NOT supported yet")
         return False
 
-    for exerciseDiv in exercises.find_all("div", recursive=False):
+    for exerciseDiv in exercises.find_all("div", { "class": "chapter-item-row" }):
         categorySpan = exerciseDiv.find("span", { "class": "chapter-item-category" })
         assert categorySpan is not None
 
