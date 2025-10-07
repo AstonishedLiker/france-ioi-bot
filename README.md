@@ -46,10 +46,10 @@ Le projet est né d'un défi lancé par mes professeurs de NSI : obtenir la note
 
 ## `📜` License / Licence
 
-### 🇺🇸 English
+### `🇺🇸` English
 
 Distributed under the MIT License.
 
-### 🇫🇷 Français
+### `🇫🇷` Français
 
 Distribué sous licence MIT.
