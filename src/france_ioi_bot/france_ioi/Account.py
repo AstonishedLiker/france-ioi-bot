@@ -16,10 +16,17 @@ class Account():
         self.session.cookies["PHPSESSID"] = phpSessId
         self.initialize()
 
-    def httpQueryAuthed(self, subdomain: str) -> Optional[Response]:
+    def getHttpQueryAuthed(self, subdomain: str) -> Optional[Response]:
         response = self.session.get(FRANCEIOI_BASE_URL + subdomain)
-        if response.status_code != 200:
-            print(f":: Error querying France-IOI ({subdomain}): expecting status code 200, got {response.status_code})!")
+        if not response.ok:
+            print(f":: Error GET France-IOI ({subdomain}): expecting success, got error code {response.status_code})!")
+            return None
+        return response
+
+    def postHttpQueryAuthed(self, subdomain: str, data: dict) -> Optional[Response]:
+        response = self.session.post(FRANCEIOI_BASE_URL + subdomain, data=data)
+        if not response.ok:
+            print(f":: Error POST France-IOI ({subdomain}): expecting success, got error code {response.status_code})!")
             return None
         return response
 
@@ -27,7 +34,7 @@ class Account():
     def initialize(self):
         assert self.hasSuccessfullyInitialized == False
 
-        response = self.httpQueryAuthed(f"/algo/chapters.php")
+        response = self.getHttpQueryAuthed(f"/algo/chapters.php")
         if response is None:
             return
 
@@ -45,7 +52,7 @@ class Account():
     def queryLevels(self):
         assert self.hasSuccessfullyInitialized
 
-        response = self.httpQueryAuthed(f"/algo/chapters.php")
+        response = self.getHttpQueryAuthed(f"/algo/chapters.php")
         if response is None:
             return None
 
