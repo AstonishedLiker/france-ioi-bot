@@ -1,10 +1,9 @@
-import os
-from urllib.parse import quote
+import time
 import argparse
 from france_ioi.Account import Account
-from france_ioi.Task import TaskCategory
+from france_ioi.Task import Task, TaskCategory
 from france_ioi.Solvers.CourseTaskSolver import solve_course_task
-from france_ioi.Solvers.ValidationChallengeDiscoveryApplicationTaskSolver import solve_validation_challenge_discovery_application_task
+from france_ioi.Solvers.ProgramBasedTaskSolver import solve_program_based_task
 
 def main():
     parser = argparse.ArgumentParser(
@@ -28,24 +27,30 @@ def main():
         print("Failed to query levels!")
         exit(1)
 
+    tasks = []
+    solvedTasks = 0
+    def handle_task(task: Task) -> bool:
+        nonlocal solvedTasks # else we can't modify it in this nested function
+        if task.category == TaskCategory.COURSE:
+            success, answerAvailable = solve_course_task(account, task)
+        else:
+            success, answerAvailable = solve_program_based_task(account, task)
+        if success:
+            solvedTasks += 1
+        return answerAvailable
+
     for level in levels:
-        print(f"- {level.title} (Locked: {level.locked})")
         for chapter in level.chapters:
-            print(f"\t- {chapter.title} ({chapter.link})")
             for task in chapter.tasks:
-                answerExists = os.path.isfile(f'./answers/{level.title}/{chapter.title}/{task.title}.py')
-                finishedState = 'FINISHED' if task.isFinished else 'NOT FINISHED'
-                solvableState = 'SOLVABLE' if answerExists else 'UNSOLVABLE'
-                print(f"\t\t- [{finishedState} - {solvableState}] {task.title} ({task.category})")
                 if not task.isFinished:
-                    if task.category == TaskCategory.COURSE:
-                        print(f"\t\t:: Attempting to solve course task...")
-                        print(f"\t\t:: > {'Success!' if solve_course_task(account, task) else 'Failed!'}")
-                    elif task.category == TaskCategory.VALIDATION or task.category == TaskCategory.CHALLENGE or task.category == TaskCategory.DISCOVERY or task.category == TaskCategory.APPLICATION:
-                        print(f"\t\t:: Attempting to solve validation/challenge/discovery/application task...")
-                        print(f"\t\t:: > {'Success!' if solve_validation_challenge_discovery_application_task(account, task) else 'Failed!'}")
-                    else:
-                        print(f"\t\t:: ! Unknown task category {task.category}, cannot solve!")
+                    tasks.append(task)
+
+    print(f" > Solving {len(tasks)} unfinished task(s)...")
+    for task in tasks:
+        if handle_task(task): # If answer was available (and sent)
+            time.sleep(5)
+
+    print(f":: Successfully solved {solvedTasks} task(s)!")
 
 if __name__ == "__main__":
     main()
