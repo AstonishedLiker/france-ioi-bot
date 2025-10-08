@@ -43,7 +43,9 @@ def scrape_tasks(account: Account, chapter: Chapter) -> bool:
         stateTitle = stateImg["title"]
         assert isinstance(stateTitle, str)
 
-        isFinished = stateTitle.startswith("Terminé")
-        chapter.tasks.append(Task(taskTitle, link, isFinished, TaskCategory(category[0]), chapter))
+        category = TaskCategory(category[0])
+        isFinished = stateTitle.startswith("Lu") if category == TaskCategory.COURSE else stateTitle.startswith("Terminé")
+
+        chapter.tasks.append(Task(taskTitle, link, isFinished, category, chapter))
 
     return True
