@@ -14,7 +14,7 @@ def scrape_levels_chapters(account: Account, html_doc: str) -> Optional[list[Lev
     doc = BeautifulSoup(html_doc, "html.parser")
     levelTable = doc.find("table", { "class": "chapters-list" })
     if levelTable is None:
-        print(":: Error scrapping the France-IOI home page: cannot find the chapters body table")
+        print(":: Error scrapping the France-IOI home page, cannot find the chapters body table")
         return None
 
     levelTableBody = levelTable.tbody
