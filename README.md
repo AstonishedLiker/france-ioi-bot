@@ -1,10 +1,15 @@
 <div align="center">
   <img alt="The France-IOI logo" src="./assets/france-ioi.png"/>
   <br>
+  <br>
   <i>A bot that tries to complete all tasks on the France-IOI platform.</i>
   <br>
   <br>
-  <a href="#-"><code>🇺🇸</code> English</a> • <a href="#-1"><code>🇫🇷</code> Français</a>
+  <img alt="Poetry Badge" src="https://img.shields.io/badge/Poetry-%233B82F6.svg?style=flat&logo=poetry&logoColor=0B3D8D">
+  <img alt="Python Badge" src="https://img.shields.io/badge/python-3670A0?style=flat&logo=python&logoColor=ffdd54">
+  <img alt="Repository Views Badge" src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fgithub.com%2FAstonishedLiker%2Ffrance-ioi-bot&label=Repository+Views&icon=eyeglasses&color=%23198754&message=&style=flat&tz=UTC">
+  <br>
+  <h3><a href="#-"><code>🇺🇸</code> English</a> • <a href="#-1"><code>🇫🇷</code> Français</a></h3>
 </div>
 
 
