@@ -31,7 +31,7 @@ This project started as a dare with my NSI teachers: to get a perfect grade by b
 * Automates most France-IOI tasks locally
 * Scrapes and structures available lessons
 
-### `📜` License
+### License
 
 Distributed under the MIT License.
 
@@ -53,6 +53,6 @@ Le projet est né d'un défi lancé par mes professeurs de NSI : obtenir la note
 * Automatise la plupart tâches France-IOI en local
 * Récupère et structure les leçons disponibles
 
-### `📜` License
+### License
 
 Distribué sous licence MIT.
