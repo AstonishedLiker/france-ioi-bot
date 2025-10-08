@@ -19,14 +19,14 @@ class Account():
     def getHttpQueryAuthed(self, subdomain: str) -> Optional[Response]:
         response = self.session.get(FRANCEIOI_BASE_URL + subdomain)
         if not response.ok:
-            print(f":: Error GET France-IOI ({subdomain}): expecting success, got error code {response.status_code})!")
+            print(f":: Error GET France-IOI ({subdomain}), expecting success, got error code {response.status_code})!")
             return None
         return response
 
     def postHttpQueryAuthed(self, subdomain: str, data: dict) -> Optional[Response]:
         response = self.session.post(FRANCEIOI_BASE_URL + subdomain, data=data)
         if not response.ok:
-            print(f":: Error POST France-IOI ({subdomain}): expecting success, got error code {response.status_code})!")
+            print(f":: Error POST France-IOI ({subdomain}), expecting success, got error code {response.status_code})!")
             return None
         return response
 

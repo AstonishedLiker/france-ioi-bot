@@ -7,7 +7,7 @@ def scrape_username(doc: BeautifulSoup) -> Optional[str]:
 
     username = label.get_text()
     if username == "Connexion":
-        print(":: Error logging in France-IOI: Invalid PHPSESSID token")
+        print(":: Error logging in France-IOI, invalid PHPSESSID token")
         return None
 
     return username
