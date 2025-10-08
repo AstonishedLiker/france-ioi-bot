@@ -2,7 +2,7 @@
   <img alt="The France-IOI logo" src="./assets/france-ioi.png"/>
   <br>
   <br>
-  <i>A bot that tries to complete all tasks on the France-IOI platform.</i>
+  <i>A bot that tries to complete all the tasks on the France-IOI platform.</i>
   <br>
   <br>
   <img alt="Poetry Badge" src="https://img.shields.io/badge/Poetry-%233B82F6.svg?style=flat&logo=poetry&logoColor=0B3D8D">

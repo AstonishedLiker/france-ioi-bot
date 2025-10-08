@@ -8,7 +8,7 @@ from france_ioi.Solvers.ProgramBasedTaskSolver import solve_program_based_task
 def main():
     parser = argparse.ArgumentParser(
         prog='france-ioi-bot',
-        description='A bot that tries to complete all tasks on the France-IOI platform.',
+        description='A bot that tries to complete all the tasks on the France-IOI platform.',
         epilog='')
 
     parser.add_argument("-t", "--token", help="The required PHPSESSID token", required=True)
