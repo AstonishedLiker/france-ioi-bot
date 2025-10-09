@@ -49,7 +49,7 @@ def solve_program_based_task(account: Account, task: Task) -> Tuple[bool, bool]:
         return False, True
 
     if "Erreur d'exécution." not in responseContents:
-        print(f":: The program for task '{task.title}' seems to not have been accepted, retrying in 5 seconds...")
+        print(f":: The program for task '{task.title}' seems to not have been accepted, retrying...")
         return solve_program_based_task(account, task)
 
     tr = doc.find("tr", { "class": "evaluation-result-error" })
